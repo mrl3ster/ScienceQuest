@@ -7,10 +7,24 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/latest/umd/lucide.js"></script>
 </head>
 <body>
     <div id="root"></div>
-    <script src="app.js"></script>
+    <script>
+        // Wait for React to load
+        function initApp() {
+            if (window.React && window.ReactDOM) {
+                console.log('React loaded, starting app...');
+                // Load app.js
+                var script = document.createElement('script');
+                script.src = 'app.js';
+                document.body.appendChild(script);
+            } else {
+                console.log('Waiting for React...');
+                setTimeout(initApp, 100);
+            }
+        }
+        initApp();
+    </script>
 </body>
 </html>
