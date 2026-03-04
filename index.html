@@ -1,10 +1,129 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test</title>
+    <title>Science Quest</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .emoji {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 32px;
+            color: #06b6d4;
+            margin: 0;
+        }
+        .content {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        button {
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
 </head>
-<body style="background: blue; color: white; font-size: 40px; padding: 20px;">
-    <h1>IF YOU SEE THIS, THE PAGE IS LOADING</h1>
-    <p>Science Quest App</p>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="emoji">🔬</div>
+            <h1 id="title">Science Quest</h1>
+        </div>
+        <div class="content" id="content">Welcome to Science Quest!</div>
+        <div class="buttons" id="buttons"></div>
+    </div>
+
+    <script>
+        const scenes = {
+            start: {
+                title: '🔬 Science Quest',
+                content: 'Welcome! You are about to become a real scientist. Learn how science really works.',
+                buttons: [
+                    { text: 'Start Matter Mission', next: 'matter' },
+                    { text: 'Learn Scientific Method', next: 'method' }
+                ]
+            },
+            matter: {
+                title: '⚛️ Particles',
+                content: 'Food coloring spreads in water. What does this tell us about matter?',
+                buttons: [
+                    { text: 'Test this idea', next: 'results' },
+                    { text: 'Back', next: 'start' }
+                ]
+            },
+            results: {
+                title: '🔬 Results',
+                content: 'Matter is made of tiny particles! You discovered this through observation.',
+                buttons: [
+                    { text: 'Continue', next: 'complete' }
+                ]
+            },
+            method: {
+                title: '⚗️ Scientific Method',
+                content: 'Ask → Research → Hypothesis → Experiment → Data → Analyze → Conclude → Communicate',
+                buttons: [
+                    { text: 'Back', next: 'start' }
+                ]
+            },
+            complete: {
+                title: '🏆 Great Work!',
+                content: 'You completed your first science mission! This is how REAL scientists think.',
+                buttons: [
+                    { text: 'Start Over', next: 'start' }
+                ]
+            }
+        };
+
+        function showScene(sceneKey) {
+            const scene = scenes[sceneKey];
+            document.getElementById('title').textContent = scene.title;
+            document.getElementById('content').textContent = scene.content;
+            
+            const buttonsDiv = document.getElementById('buttons');
+            buttonsDiv.innerHTML = '';
+            
+            scene.buttons.forEach(btn => {
+                const button = document.createElement('button');
+                button.textContent = btn.text + ' →';
+                button.onclick = () => showScene(btn.next);
+                buttonsDiv.appendChild(button);
+            });
+        }
+
+        showScene('start');
+    </script>
 </body>
 </html>
