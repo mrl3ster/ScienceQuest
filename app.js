@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronRight, AlertCircle, CheckCircle, BookOpen, Award, RotateCcw, Lock } from 'lucide-react';
+const React = window.React;
+const { useState } = React;
 
 const ScienceQuestPlatform = () => {
   const [gameState, setGameState] = useState('start');
